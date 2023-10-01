@@ -2,23 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tailwind Style */
+/** Tailwind Style */
+/* Layouts */
 .app {
     @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
   }
 
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
-  
-  .flex-start {
-    @apply flex justify-start items-start;
-  }
-  
-  .flex-end {
-    @apply flex justify-end items-center;
-  }
-  
-  .flex-between {
-    @apply flex justify-between items-center;
-  }
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
+
+.flex-end {
+  @apply flex justify-end items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+/* Colors */
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500;
+}
+
+.green_gradient {
+  @apply bg-gradient-to-r from-green-400 to-green-500;
+}
+
+.blue_gradient {
+  @apply bg-gradient-to-r from-cyan-700 to-blue-500;
+}
+
+/* Colors Masks (for text) */
+.text_gradient {
+  @apply bg-clip-text text-transparent;
+}

@@ -20,7 +20,7 @@ const Home = () => {
           height={40}
           className="object-contain"
         />
-        <p className="font-satoshi font-semibold text-lg text-black tracking-wide;">
+        <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
           Document Search
         </p>
       </div>
