@@ -10,15 +10,15 @@
   .flex-center {
     @apply flex justify-center items-center;
   }
-  
+
   .flex-start {
     @apply flex justify-start items-start;
   }
-  
+
   .flex-end {
     @apply flex justify-end items-center;
   }
-  
+
   .flex-between {
     @apply flex justify-between items-center;
   }
