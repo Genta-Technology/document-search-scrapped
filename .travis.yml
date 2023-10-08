@@ -1,9 +1,9 @@
-language: Python
-Python:
-  - "3.8"
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-# command to run tests
+language: node_js
+node_js:
+  - 14.15.0
+cache:
+  directories:
+    - node_modules
 script:
-  - pytest --pylint
+  - npm run build
+  - npm run export
