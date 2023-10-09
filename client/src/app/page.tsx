@@ -88,9 +88,8 @@ const Home = () => {
       </div>
 
       <FileUploader />
-      <div className="bg-slate-400">
-        <FileViewer />
-      </div>
+
+      <FileViewer />
 
       <Chip>(placeholder for PDF viewer) Context: </Chip>
       <Card>
