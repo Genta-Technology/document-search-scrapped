@@ -12,7 +12,7 @@ import {
   Card,
   CardBody,
 } from "@nextui-org/react";
-import FileUploader from "@components/FileUploader";
+import FileUploader from "@components/DropFile";
 
 const MockModels = [
   { label: "Xenova/distilbert-base-cased-distilled-squad" },

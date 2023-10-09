@@ -14,7 +14,8 @@
     "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-drag-drop-files": "^2.3.10"
   },
   "devDependencies": {
     "@types/long": "^5.0.0",
