@@ -12,7 +12,10 @@ import {
   Card,
   CardBody,
 } from "@nextui-org/react";
+
 import FileUploader from "@components/DropFile";
+
+import FileViewer from "@components/FileViewer";
 
 const MockModels = [
   { label: "Xenova/distilbert-base-cased-distilled-squad" },
@@ -85,6 +88,9 @@ const Home = () => {
       </div>
 
       <FileUploader />
+      <div className="bg-slate-400">
+        <FileViewer />
+      </div>
 
       <Chip>(placeholder for PDF viewer) Context: </Chip>
       <Card>

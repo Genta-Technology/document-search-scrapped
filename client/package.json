@@ -15,7 +15,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-drag-drop-files": "^2.3.10"
+    "react-drag-drop-files": "^2.3.10",
+    "react-pdf": "^7.5.0"
   },
   "devDependencies": {
     "@types/long": "^5.0.0",
