@@ -71,7 +71,6 @@ const Home = () => {
       worker.current.postMessage({ question, context });
     }
   }, []);
-
   return (
     <div className="w-full flex-center flex-col gap-5 p-7">
       <div className="flex gap-4 items-center justify-center mb-3">
@@ -90,8 +89,6 @@ const Home = () => {
       <FileUploader />
 
       <FileViewer />
-
-      <Chip>(placeholder for PDF viewer) Context: </Chip>
       <Card>
         <CardBody>
           <p>{MockContext}</p>
