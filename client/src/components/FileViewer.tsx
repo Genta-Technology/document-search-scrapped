@@ -49,7 +49,7 @@ export default function FileViewer() {
     [],
   );
 
-  // Update context (still missing the last page)
+  // Update context  (still missing the last page)
   useEffect(() => {
     setContext(context + " " + currentPageText);
     console.log("Context: " + context);
