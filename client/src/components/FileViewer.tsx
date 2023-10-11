@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@nextui-org/react";
 
 import { pdfjs, Document, Page } from "react-pdf";
-// import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -21,27 +21,15 @@ function highlightPattern(text: string, pattern: string) {
 }
 
 export default function FileViewer() {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState<string>("");
 
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [currentPageText, setCurrentPageText] = useState<string>("");
+  const [context, setContext] = useState<string>("");
 
   // Display the first page
   function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
-    setPageNumber(1);
-  }
-
-  // Navigation
-  function changePage(offset: any) {
-    setPageNumber((prevPageNumber) => prevPageNumber + offset);
-  }
-  function previousPage() {
-    changePage(-1);
-  }
-
-  function nextPage() {
-    changePage(1);
   }
 
   // Highlighting given text
@@ -50,6 +38,24 @@ export default function FileViewer() {
     [searchText],
   );
 
+  const getTextPage = useCallback(
+    (e: any) =>
+      e.getTextContent().then((textContent: any) => {
+        let pageText: string = textContent.items
+          .map((s: any) => s.str)
+          .join("");
+        setCurrentPageText(pageText);
+        console.log("Current page: " + pageText);
+      }),
+    [],
+  );
+
+  // Update context  (still missing the last page)
+  useEffect(() => {
+    setContext(context + " " + currentPageText);
+    console.log("Context: " + context);
+  }, [currentPageText]);
+
   // Uodate search text
   function onChange(event: any) {
     setSearchText(event.target.value);
@@ -57,30 +63,15 @@ export default function FileViewer() {
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
-      <div className="flex justify-center max-w-full flex-col items-center gap-[0.25vw]">
-        <p className="items-center justify-center flex-auto">
-          Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-        </p>
-        <div className="flex justify-between items-center w-[30vw]">
-          <Button
-            color="primary"
-            disabled={pageNumber <= 1}
-            onClick={previousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            color="primary"
-            disabled={numPages === null || pageNumber >= numPages}
-            onClick={nextPage}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
-
-      <Document file={"./sample2.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} customTextRenderer={textRenderer} />
+      <Document file={"./sample3.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.from(new Array(numPages), (el, index) => (
+          <Page
+            key={`page_${index + 1}`}
+            pageNumber={index + 1}
+            onLoadSuccess={getTextPage}
+            customTextRenderer={textRenderer}
+          />
+        ))}
       </Document>
       <div>
         <label htmlFor="search">Search:</label>
