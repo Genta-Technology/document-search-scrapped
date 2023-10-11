@@ -14,6 +14,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 function highlightPattern(text: string, pattern: string) {
+  console.log("text: " + text);
+  console.log("pattern: " + pattern);
+  console.log("index: " + text.indexOf(pattern));
   return text.replace(pattern, (value) => `<mark>${value}</mark>`);
 }
 
@@ -61,7 +64,6 @@ export default function FileViewer() {
   }
 
   return (
-    <div className="justify-center flex-col items-center">
       <div>
         <label htmlFor="search">Search:</label>
         <input
@@ -71,7 +73,6 @@ export default function FileViewer() {
           onChange={onChange}
         />
       </div>
-
       <Document file={"./sample3.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page

@@ -4,14 +4,19 @@ import { FilePond } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import { useState } from "react";
 
-export default function DropFile() {
+
+export default const DropFile = () => {
+
   return (
-    <FilePond
-      server={{
-        process: "/api/upload",
-        fetch: null,
-        revert: null,
-      }}
-    />
+    <div className="w-[25vw]">
+      <FileUploader
+        multiple={false}
+        name="file"
+        types={fileTypes}
+        label={"Drop a File"}
+        className="max-w-max"
+      />
+    </div>
+
   );
 }
