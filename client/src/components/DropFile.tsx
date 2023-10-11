@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { FileUploader } from "react-drag-drop-files";
+"use client";
 
-const fileTypes = ["PDF"];
+import { FilePond } from "react-filepond";
+import "filepond/dist/filepond.min.css";
+import { useState } from "react";
 
-const DropFile = () => {
+
+export default const DropFile = () => {
 
   return (
     <div className="w-[25vw]">
@@ -15,7 +17,6 @@ const DropFile = () => {
         className="max-w-max"
       />
     </div>
-  );
-};
 
-export default DropFile;
+  );
+}

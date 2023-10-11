@@ -13,7 +13,7 @@ import {
   CardBody,
 } from "@nextui-org/react";
 
-import FileUploader from "@components/DropFile";
+import DropFile from "@components/DropFile";
 
 import FileViewer from "@components/FileViewer";
 
@@ -86,7 +86,7 @@ const Home = () => {
         </p>
       </div>
 
-      <FileUploader />
+      <DropFile />
 
       <FileViewer />
       <Card>
