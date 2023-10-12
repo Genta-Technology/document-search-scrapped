@@ -2,8 +2,6 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 
-import { Button } from "@nextui-org/react";
-
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -14,9 +12,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 function highlightPattern(text: string, pattern: string) {
-  console.log("text: " + text);
-  console.log("pattern: " + pattern);
-  console.log("index: " + text.indexOf(pattern));
   return text.replace(pattern, (value) => `<mark>${value}</mark>`);
 }
 
@@ -24,7 +19,6 @@ export default function FileViewer() {
   const [searchText, setSearchText] = useState<string>("");
 
   const [numPages, setNumPages] = useState(null);
-  const [currentPageText, setCurrentPageText] = useState<string>("");
   const [context, setContext] = useState<string>("");
 
   // Display the first page
@@ -44,17 +38,11 @@ export default function FileViewer() {
         let pageText: string = textContent.items
           .map((s: any) => s.str)
           .join("");
-        setCurrentPageText(pageText);
-        console.log("Current page: " + pageText);
+        setContext((prev) => prev + " " + pageText);
       }),
     [],
   );
-
-  // Update context  (still missing the last page)
-  useEffect(() => {
-    setContext(context + " " + currentPageText);
-    console.log("Context: " + context);
-  }, [currentPageText]);
+  console.log("Context: " + context);
 
   // Uodate search text
   function onChange(event: any) {
