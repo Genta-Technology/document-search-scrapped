@@ -15,11 +15,10 @@ function highlightPattern(text: string, pattern: string) {
   return text.replace(pattern, (value) => `<mark>${value}</mark>`);
 }
 
-export default function FileViewer() {
+export default function FileViewer(props: any) {
   const [searchText, setSearchText] = useState<string>("");
 
   const [numPages, setNumPages] = useState(null);
-  const [context, setContext] = useState<string>("");
 
   // Display the first page
   function onDocumentLoadSuccess({ numPages }: any) {
@@ -37,12 +36,12 @@ export default function FileViewer() {
       e.getTextContent().then((textContent: any) => {
         let pageText: string = textContent.items
           .map((s: any) => s.str)
-          .join("");
-        setContext((prev) => prev + " " + pageText);
+          .join("|");
+        
+        props.setContext((prev: string) => prev + " " + pageText);
       }),
     [],
   );
-  console.log("Context: " + context);
 
   // Uodate search text
   function onChange(event: any) {
@@ -51,7 +50,7 @@ export default function FileViewer() {
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
-      <Document file={"./sample3.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={"./sample6.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page
             key={`page_${index + 1}`}

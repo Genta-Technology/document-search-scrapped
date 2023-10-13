@@ -31,6 +31,7 @@ const Home = () => {
   const [result, setResult] = useState<Worker | null>(null);
   const [ready, setReady] = useState<Boolean | null>(null);
   const [question, setQuestion] = useState<string>("");
+  const [context, setContext] = useState<string>("");
 
   // Create a reference to the worker object.
   const worker: any = useRef(null);
@@ -71,6 +72,8 @@ const Home = () => {
       worker.current.postMessage({ question, context });
     }
   }, []);
+
+  console.log("Context: " + context);
   return (
     <div className="w-full flex-center flex-col gap-5 p-7">
       <div className="flex gap-4 items-center justify-center mb-3">
@@ -88,12 +91,8 @@ const Home = () => {
 
       <FileUploader />
 
-      <FileViewer />
-      <Card>
-        <CardBody>
-          <p>{MockContext}</p>
-        </CardBody>
-      </Card>
+      <FileViewer context={context} setContext={setContext} />
+      
 
       <Select
         items={MockModels}
@@ -126,7 +125,7 @@ const Home = () => {
             <Button
               type="submit"
               color="primary"
-              onClick={() => classify(question, MockContext)}
+              onClick={() => classify(question, context)}
             >
               Ask
             </Button>
