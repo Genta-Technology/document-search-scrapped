@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import { Button } from "@nextui-org/react";
 
 import { pdfjs, Document, Page } from "react-pdf";
-// import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(

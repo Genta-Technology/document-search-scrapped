@@ -73,76 +73,92 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full flex-center flex-col gap-5 p-7">
-      <div className="flex gap-4 items-center justify-center mb-3">
-        <Image
-          src="/Genta_Logo.png"
-          alt="Logo"
-          width={40}
-          height={40}
-          className="object-contain"
-        />
-        <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
-          Document Search
-        </p>
-      </div>
+    
+    <div>
+        <div className="flex gap-4 items-center justify-center mb-10 mt-10 bg-neutral-300 w-100px">
+          <Image
+            src="/Genta_Logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
+            Document Search
+          </p>
+        </div>
+        <div className = "columns-2">
+      <div className="flex">
+        <div className="bg-dark-purple h-screen p-5 pt-8 w-72">
+          <FileUploader />
 
-      <FileUploader />
+            <FileViewer />
 
-      <FileViewer />
+            <Chip>(placeholder for PDF viewer) Context: </Chip>
+            <Card>
+              <CardBody>
+                <p>{MockContext}</p>
+              </CardBody>
+            </Card>
 
-      <Chip>(placeholder for PDF viewer) Context: </Chip>
-      <Card>
-        <CardBody>
-          <p>{MockContext}</p>
-        </CardBody>
-      </Card>
-
-      <Select
-        items={MockModels}
-        label="Model to use"
-        placeholder="Select a model"
-        defaultSelectedKeys={["Xenova/distilbert-base-cased-distilled-squad"]}
-        className="max-w-lg"
-      >
-        {(MockModels) => (
-          <SelectItem key={MockModels.label}>{MockModels.label}</SelectItem>
-        )}
-      </Select>
-
-      <div className="w-full max-w-2xl flex flex-col">
-        <Textarea
-          label="Question"
-          placeholder="Ask a question i.e 'what is TRIUMF?'"
-          description="Enter a consice question about the document"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setQuestion(e.target.value);
-          }}
-        />
-
-        <pre className="flex-end">
-          {ready !== null && (!ready || !result) ? (
-            <Button color="primary" isLoading>
-              Loading..
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              color="primary"
-              onClick={() => classify(question, MockContext)}
+            <Select
+              items={MockModels}
+              label="Model to use"
+              placeholder="Select a model"
+              defaultSelectedKeys={["Xenova/distilbert-base-cased-distilled-squad"]}
+              className="max-w-lg flex"
             >
-              Ask
-            </Button>
-          )}
-        </pre>
-      </div>
+              {(MockModels) => (
+                <SelectItem key={MockModels.label}>{MockModels.label}</SelectItem>
+              )}
+            </Select>
+        </div>
+        
 
-      {ready !== null && (
-        <pre className="bg-gray-100 p-2 rounded">
-          {!ready || !result ? "Loading..." : JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+        
+      </div>
+      
+      <div>
+        <div className="w-full max-w-2xl flex flex-col">
+          <Textarea
+            label="Question"
+            placeholder="Ask a question i.e 'what is TRIUMF?'"
+            description="Enter a consice question about the document"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setQuestion(e.target.value);
+            }}
+          />
+
+          <pre className="flex-end">
+            {ready !== null && (!ready || !result) ? (
+              <Button color="primary" isLoading>
+                Loading..
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                color="primary"
+                onClick={() => classify(question, MockContext)}
+              >
+                Ask
+              </Button>
+            )}
+          </pre>
+        </div>
+
+        {ready !== null && (
+          <pre className="bg-gray-100 p-2 rounded">
+            {!ready || !result ? "Loading..." : JSON.stringify(result, null, 2)}
+          </pre>
+        )}
+
+      </div>
+      
     </div>
+    </div>
+    
+    
+    
   );
 };
 
