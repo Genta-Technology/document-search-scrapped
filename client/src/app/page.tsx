@@ -75,78 +75,82 @@ const Home = () => {
   // }, [context]);
 
   return (
-    <div className="w-full flex-center flex-col gap-5 p-7">
-      <div className="flex gap-4 items-center justify-center mb-3">
-        <Image
-          src="/Genta_Logo.png"
-          alt="Logo"
-          width={40}
-          height={40}
-          className="object-contain"
-        />
-        <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
-          Document Search
-        </p>
-      </div>
+    <div className="flex w-[100%]">
+      <div className="bg-gray-800 h-screen p-5 pt-8 w-[33vw] fixed items-center justify-end space-y-8 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)]">
+        <div className="flex gap-4 items-center justify-center mb-3">
+          <Image
+            src="/Genta_Logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
+            Document Search
+          </p>
+        </div>
+        <div className="gap-6">
+          <Select
+            items={MockModels}
+            label="Model to use"
+            placeholder="Select a model"
+            defaultSelectedKeys={[
+              "Xenova/distilbert-base-cased-distilled-squad",
+            ]}
+            className="max-w-lg"
+          >
+            {(MockModels) => (
+              <SelectItem key={MockModels.label}>{MockModels.label}</SelectItem>
+            )}
+          </Select>
+        </div>
 
-      <FileUploader />
+        <div className="w-full max-w-2xl flex flex-col">
+          <Textarea
+            label="Question"
+            placeholder="Ask a question i.e 'what is TRIUMF?'"
+            description="Enter a consice question about the document"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setQuestion(e.target.value);
+            }}
+          />
 
-      <FileViewer
-        context={context}
-        setContext={setContext}
-        resultFromModel={JSON.stringify(result, null, 2)}
-      />
-
-      <Select
-        items={MockModels}
-        label="Model to use"
-        placeholder="Select a model"
-        defaultSelectedKeys={["Xenova/distilbert-base-cased-distilled-squad"]}
-        className="max-w-lg"
-      >
-        {(MockModels) => (
-          <SelectItem key={MockModels.label}>{MockModels.label}</SelectItem>
-        )}
-      </Select>
-
-      <div className="w-full max-w-2xl flex flex-col">
-        <Textarea
-          label="Question"
-          placeholder="Ask a question i.e 'what is TRIUMF?'"
-          description="Enter a consice question about the document"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setQuestion(e.target.value);
-          }}
-        />
-
-        <pre className="flex-end">
-          {ready !== null && (!ready || !result) ? (
-            <Button color="primary" isLoading>
-              Loading..
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              color="primary"
-              onClick={() => classify(question, context)}
-            >
-              Ask
-            </Button>
+          <pre className="flex-end">
+            {ready !== null && (!ready || !result) ? (
+              <Button color="primary" isLoading>
+                Loading..
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                color="primary"
+                onClick={() => classify(question, context)}
+              >
+                Ask
+              </Button>
+            )}
+          </pre>
+          {ready !== null && (
+            <pre className="bg-gray-100 p-2 rounded">
+              {!ready || !result ? (
+                "Loading..."
+              ) : (
+                <Card className="max-w-2xl">
+                  <CardBody>{JSON.stringify(result, null, 2)}</CardBody>
+                </Card>
+              )}
+            </pre>
           )}
-        </pre>
+        </div>
       </div>
-
-      {ready !== null && (
-        <pre className="bg-gray-100 p-2 rounded">
-          {!ready || !result ? (
-            "Loading..."
-          ) : (
-            <Card className="max-w-2xl">
-              <CardBody>{JSON.stringify(result, null, 2)}</CardBody>
-            </Card>
-          )}
-        </pre>
-      )}
+      <div className="h-screen p-5 pt-8 w-[33vw] p-5 pt-8"></div>
+      <div className="flex justify-center  w-[100%]">
+        <FileViewer
+          context={context}
+          setContext={setContext}
+          resultFromModel={JSON.stringify(result, null, 2)}
+        />
+      </div>
     </div>
   );
 };

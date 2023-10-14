@@ -62,18 +62,10 @@ export default function FileViewer(props: any) {
             pageNumber={index + 1}
             onLoadSuccess={getTextPage}
             customTextRenderer={textRenderer}
+            width={750}
           />
         ))}
       </Document>
-      <div>
-        <label htmlFor="search">Search:</label>
-        <input
-          type="search"
-          id="search"
-          value={searchText}
-          // onChange={onChange}
-        />
-      </div>
     </div>
   );
 }
