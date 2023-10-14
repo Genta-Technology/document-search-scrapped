@@ -71,7 +71,6 @@ const Home = () => {
       worker.current.postMessage({ question, context });
     }
   }, []);
-
   return (
     
     <div>
