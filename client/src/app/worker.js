@@ -31,8 +31,8 @@ self.addEventListener('message', async (event) => {
     // Actually perform the classification
     let output = await classifier(event.data.question, event.data.context);
 
-    console.log("The question received in Worker is: " + event.data.question);
-    console.log("The context received in Worker is: " + event.data.context);
+    // console.log("The question received in Worker is: " + event.data.question);
+    // console.log("The context received in Worker is: " + event.data.context);
 
     // Send the output back to the main thread
     self.postMessage({

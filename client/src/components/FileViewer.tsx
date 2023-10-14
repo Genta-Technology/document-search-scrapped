@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -17,7 +17,6 @@ function highlightPattern(text: string, pattern: string) {
 
 export default function FileViewer(props: any) {
   const [searchText, setSearchText] = useState<string>("");
-
   const [numPages, setNumPages] = useState(null);
 
   // Display the first page
@@ -31,6 +30,7 @@ export default function FileViewer(props: any) {
     [searchText],
   );
 
+  // Get text from pdf
   const getTextPage = useCallback(
     (e: any) =>
       e.getTextContent().then((textContent: any) => {
@@ -44,9 +44,14 @@ export default function FileViewer(props: any) {
   );
 
   // Uodate search text
-  function onChange(event: any) {
-    setSearchText(event.target.value);
-  }
+  // function onChange(event: any) {
+  //   setSearchText(event.target.value);
+  // }
+
+  useEffect(() => {
+    console.log("resultFromModel : " + props.resultFromModel);
+    setSearchText((props.resultFromModel as string).replace(/"/g, ""));
+  }, [props.resultFromModel]);
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
@@ -66,7 +71,7 @@ export default function FileViewer(props: any) {
           type="search"
           id="search"
           value={searchText}
-          onChange={onChange}
+          // onChange={onChange}
         />
       </div>
     </div>

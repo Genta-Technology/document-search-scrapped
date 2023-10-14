@@ -52,7 +52,7 @@ const Home = () => {
           setReady(true);
           break;
         case "complete":
-          setResult(e.data.output);
+          setResult(e.data.output.answer);
           break;
       }
     };
@@ -70,7 +70,10 @@ const Home = () => {
     }
   }, []);
 
-  console.log("Context: " + context);
+  // useEffect(() => {
+  //   console.log("Context: " + context);
+  // }, [context]);
+
   return (
     <div className="w-full flex-center flex-col gap-5 p-7">
       <div className="flex gap-4 items-center justify-center mb-3">
@@ -88,7 +91,11 @@ const Home = () => {
 
       <FileUploader />
 
-      <FileViewer context={context} setContext={setContext} />
+      <FileViewer
+        context={context}
+        setContext={setContext}
+        resultFromModel={JSON.stringify(result, null, 2)}
+      />
 
       <Select
         items={MockModels}
