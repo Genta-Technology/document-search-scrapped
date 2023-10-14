@@ -22,9 +22,6 @@ const MockModels = [
   { label: "mock_model2" },
   { label: "mock_model3" },
 ];
-const MockContext: string =
-  "The University of British Columbia (UBC) is a public research university with campuses near Vancouver and in Kelowna. Established in 1908, it is the oldest university in British Columbia. With an annual research budget of $759 million, UBC funds over 8,000 projects a year.[The Vancouver campus is situated adjacent to the University Endowment Lands located about 10 km (6 mi) west of downtown Vancouver.[8] UBC is home to TRIUMF, Canada's national laboratory for particle and nuclear physics, which houses the world's largest cyclotron. In addition to the Peter Wall Institute for Advanced Studies and Stuart Blusson Quantum Matter Institute, UBC and the Max Planck Society collectively established the first Max Planck Institute in North America, specializing in quantum materials.[9] One of the largest research libraries in Canada, the UBC Library system has over 10 million volumes among its 21 branches.[10][11] The Okanagan campus, acquired in 2005, is located in Kelowna, British Columbia.Eight Nobel laureates, 74 Rhodes scholars, 65 Olympians garnering medals, ten fellows in both American Academy of Arts & Sciences and the Royal Society, and 273 fellows to the Royal Society of Canada have been affiliated with UBC.[4] Three Canadian prime ministers, including Canada's first female prime minister, Kim Campbell, and current prime minister, Justin Trudeau, have been educated at UBC.[12]";
-const MockQuestion: string = "Who was Jim Henson?";
 
 const Home = () => {
   // track the classification result and the model loading status.
@@ -55,7 +52,7 @@ const Home = () => {
           setReady(true);
           break;
         case "complete":
-          setResult(e.data.output);
+          setResult(e.data.output.answer);
           break;
       }
     };
@@ -73,7 +70,10 @@ const Home = () => {
     }
   }, []);
 
-  console.log("Context: " + context);
+  // useEffect(() => {
+  //   console.log("Context: " + context);
+  // }, [context]);
+
   return (
     <div className="w-full flex-center flex-col gap-5 p-7">
       <div className="flex gap-4 items-center justify-center mb-3">
@@ -91,8 +91,11 @@ const Home = () => {
 
       <FileUploader />
 
-      <FileViewer context={context} setContext={setContext} />
-      
+      <FileViewer
+        context={context}
+        setContext={setContext}
+        resultFromModel={JSON.stringify(result, null, 2)}
+      />
 
       <Select
         items={MockModels}
@@ -135,7 +138,13 @@ const Home = () => {
 
       {ready !== null && (
         <pre className="bg-gray-100 p-2 rounded">
-          {!ready || !result ? "Loading..." : JSON.stringify(result, null, 2)}
+          {!ready || !result ? (
+            "Loading..."
+          ) : (
+            <Card className="max-w-2xl">
+              <CardBody>{JSON.stringify(result, null, 2)}</CardBody>
+            </Card>
+          )}
         </pre>
       )}
     </div>

@@ -17,7 +17,6 @@ function highlightPattern(text: string, pattern: string) {
 
 export default function FileViewer(props: any) {
   const [searchText, setSearchText] = useState<string>("");
-
   const [numPages, setNumPages] = useState(null);
 
   // Display the first page
@@ -31,26 +30,32 @@ export default function FileViewer(props: any) {
     [searchText],
   );
 
+  // Get text from pdf
   const getTextPage = useCallback(
     (e: any) =>
       e.getTextContent().then((textContent: any) => {
         let pageText: string = textContent.items
           .map((s: any) => s.str)
-          .join("|");
-        
+          .join(" ");
+
         props.setContext((prev: string) => prev + " " + pageText);
       }),
     [],
   );
 
   // Uodate search text
-  function onChange(event: any) {
-    setSearchText(event.target.value);
-  }
+  // function onChange(event: any) {
+  //   setSearchText(event.target.value);
+  // }
+
+  useEffect(() => {
+    console.log("resultFromModel : " + props.resultFromModel);
+    setSearchText((props.resultFromModel as string).replace(/"/g, ""));
+  }, [props.resultFromModel]);
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
-      <Document file={"./sample6.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={"./sample4.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page
             key={`page_${index + 1}`}
@@ -66,7 +71,7 @@ export default function FileViewer(props: any) {
           type="search"
           id="search"
           value={searchText}
-          onChange={onChange}
+          // onChange={onChange}
         />
       </div>
     </div>
