@@ -36,8 +36,8 @@ export default function FileViewer(props: any) {
       e.getTextContent().then((textContent: any) => {
         let pageText: string = textContent.items
           .map((s: any) => s.str)
-          .join("|");
-        
+          .join(" ");
+
         props.setContext((prev: string) => prev + " " + pageText);
       }),
     [],
@@ -50,7 +50,7 @@ export default function FileViewer(props: any) {
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
-      <Document file={"./sample6.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={"./sample4.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page
             key={`page_${index + 1}`}
