@@ -2,8 +2,6 @@ import "@styles/globals.css";
 
 import { Providers } from "./providers";
 
-import sidebar from "@components/sidebar";
-
 export const metadata = {
   title: "Document Search",
   description: "will be updated",
