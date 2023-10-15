@@ -1,0 +1,40 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^2.1.13",
+    "@xenova/transformers": "^2.6.2",
+    "filepond": "^4.30.4",
+    "framer-motion": "^10.16.4",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-drag-drop-files": "^2.3.10",
+    "react-filepond": "^7.1.2",
+    "react-pdf": "^7.5.0"
+  },
+  "devDependencies": {
+    "@types/long": "^5.0.0",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/uuid": "^9.0.5",
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "long": "^5.2.3",
+    "postcss": "latest",
+    "prettier": "3.0.3",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  }
+}
