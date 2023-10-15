@@ -18,7 +18,7 @@ function highlightPattern(text: string, pattern: string) {
 export default function FileViewer(props: any) {
   const [searchText, setSearchText] = useState<string>("");
   const [numPages, setNumPages] = useState(null);
-
+  const [viewerWidth, setViewerWidth] = useState(0);
   // Display the first page
   function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
@@ -29,6 +29,7 @@ export default function FileViewer(props: any) {
     (textItem: any) => highlightPattern(textItem.str, searchText),
     [searchText],
   );
+  console.log(viewerWidth);
 
   // Get text from pdf
   const getTextPage = useCallback(
@@ -47,6 +48,11 @@ export default function FileViewer(props: any) {
     setSearchText((props.resultFromModel as string).replace(/"/g, ""));
   }, [props.resultFromModel]);
 
+  useEffect(() => {
+    setViewerWidth(window.innerWidth / 2);
+    console.log(window.innerWidth);
+  }, [window.innerWidth]);
+
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
       <Document file={props.pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
@@ -56,7 +62,7 @@ export default function FileViewer(props: any) {
             pageNumber={index + 1}
             onLoadSuccess={getTextPage}
             customTextRenderer={textRenderer}
-            width={750}
+            width={viewerWidth}
           />
         ))}
       </Document>

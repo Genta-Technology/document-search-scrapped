@@ -83,8 +83,8 @@ const Home = () => {
   };
   return (
     <div className="flex w-[100%]">
-      <div className="bg-gray-800 h-screen p-5 pt-8 w-[33vw] fixed items-center justify-end space-y-8 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)]">
-        <div className="flex gap-4 items-center justify-center mb-3">
+      <div className="bg-gray-800 h-screen p-5 pt-8 w-[33vw] fixed items-center justify-end space-y-8 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] gap-[5vw]">
+        <div className="flex items-center justify-center mb-3 gap-[2vw]">
           <Image
             src="/Genta_Logo.png"
             alt="Logo"
@@ -115,7 +115,7 @@ const Home = () => {
           </Select>
         </div>
 
-        <div className="w-full max-w-2xl flex flex-col">
+        <div className="w-full max-w-2xl flex flex-col gap-[2vw]">
           <Textarea
             label="Question"
             placeholder="Ask a question i.e 'what is TRIUMF?'"
@@ -135,6 +135,7 @@ const Home = () => {
                 type="submit"
                 color="primary"
                 onClick={() => classify(question, context)}
+                disabled={pdfFile == null}
               >
                 Ask
               </Button>
