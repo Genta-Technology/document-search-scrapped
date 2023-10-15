@@ -6,7 +6,6 @@ import Image from "next/image";
 import {
   Select,
   SelectItem,
-  Chip,
   Textarea,
   Button,
   Card,
@@ -19,8 +18,6 @@ import FileViewer from "@components/FileViewer";
 
 const MockModels = [
   { label: "Xenova/distilbert-base-cased-distilled-squad" },
-  { label: "mock_model2" },
-  { label: "mock_model3" },
 ];
 
 const Home = () => {
@@ -71,20 +68,14 @@ const Home = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log("Context: " + context);
-  // }, [context]);
   const fileType = ["application/pdf"];
   const handlePdfFileChange = (e: any) => {
-    console.log("loading...");
     let selectedFile = e;
     if (selectedFile) {
-      console.log("pdf received");
       if (selectedFile && fileType.includes(selectedFile.type)) {
         let reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onloadend = (e: any) => {
-            console.log(e.target.result);
             setPdfFile(e.target.result);
         };
       }

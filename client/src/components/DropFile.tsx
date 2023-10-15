@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 
 const fileTypes = ["PDF"];

@@ -43,13 +43,7 @@ export default function FileViewer(props: any) {
     [],
   );
 
-  // Uodate search text
-  // function onChange(event: any) {
-  //   setSearchText(event.target.value);
-  // }
-
   useEffect(() => {
-    console.log("resultFromModel : " + props.resultFromModel);
     setSearchText((props.resultFromModel as string).replace(/"/g, ""));
   }, [props.resultFromModel]);
 
