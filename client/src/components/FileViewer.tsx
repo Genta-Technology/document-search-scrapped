@@ -55,7 +55,7 @@ export default function FileViewer(props: any) {
 
   return (
     <div className="justify-center flex-col items-center flex gap-[0.25vw]">
-      <Document file={"./sample4.pdf"} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={props.pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page
             key={`page_${index + 1}`}

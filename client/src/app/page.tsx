@@ -29,6 +29,7 @@ const Home = () => {
   const [ready, setReady] = useState<Boolean | null>(null);
   const [question, setQuestion] = useState<string>("");
   const [context, setContext] = useState<string>("");
+  const [pdfFile, setPdfFile]=useState(null);
 
   // Create a reference to the worker object.
   const worker: any = useRef(null);
@@ -73,7 +74,22 @@ const Home = () => {
   // useEffect(() => {
   //   console.log("Context: " + context);
   // }, [context]);
-
+  const fileType = ["application/pdf"];
+  const handlePdfFileChange = (e: any) => {
+    console.log("loading...");
+    let selectedFile = e;
+    if (selectedFile) {
+      console.log("pdf received");
+      if (selectedFile && fileType.includes(selectedFile.type)) {
+        let reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = (e: any) => {
+            console.log(e.target.result);
+            setPdfFile(e.target.result);
+        };
+      }
+    }
+  };
   return (
     <div className="flex w-[100%]">
       <div className="bg-gray-800 h-screen p-5 pt-8 w-[33vw] fixed items-center justify-end space-y-8 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)]">
@@ -88,6 +104,9 @@ const Home = () => {
           <p className="font-satoshi font-semibold text-lg tracking-wide blue_gradient text_gradient">
             Document Search
           </p>
+        </div>
+        <div className="flex justify-center">
+          <FileUploader handlePdfFileChange={handlePdfFileChange} />
         </div>
         <div className="gap-6">
           <Select
@@ -149,6 +168,7 @@ const Home = () => {
           context={context}
           setContext={setContext}
           resultFromModel={JSON.stringify(result, null, 2)}
+          pdfFile={pdfFile}
         />
       </div>
     </div>
